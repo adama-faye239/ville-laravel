@@ -24,13 +24,10 @@ Route::post('/contact', function (Request $request) {
     ]);
 });
 
-// Route::get('/profile', function () {   /* keycloak*/
-//     return response()->json([
-//         'message' => 'Route protégée'
-//     ]);
-// });
-Route::get('/profile', function () {
+Route::middleware('keycloak')->get('/profile', function (Request $request) {
+
     return response()->json([
-        'message' => 'Route profile OK'
+        'message' => 'Route protégée par Keycloak'
     ]);
+
 });
