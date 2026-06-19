@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
     $middleware->alias([
         'keycloak' => \App\Http\Middleware\KeycloakMiddleware::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
     ]);
 
 })
