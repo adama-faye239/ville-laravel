@@ -8,10 +8,29 @@ use Illuminate\Http\Request;
 class DemandesController extends Controller
 {
     // GET /api/demandes - Lister toutes les demandes
-  public function index()
+
+public function index(Request $request)
 {
-return response()->json(Demande::all());
+    $userId = $request->attributes->get('user_id');
+    $roles = $request->attributes->get('roles');
+
+    if (in_array('Admin', $roles)) {
+
+        return response()->json(
+            Demande::all()
+        );
+
+    }
+
+    return response()->json(
+        Demande::where(
+            'keycloak_id',
+            $userId
+        )->get()
+    );
 }
+
+
 
     // POST /api/demandes - Créer une nouvelle demande
   public function store(Request $request)
